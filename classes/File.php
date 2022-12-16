@@ -10,6 +10,11 @@
             $this->idf = (int) $row["IDF"];
             $this->ime = $row["IME"];
         }
+
+        public function getHtmlTableRow() {
+            return 
+                "<div> <a> FILE </a> {$this->ime} </div>";
+        }
     }
 
 ?>

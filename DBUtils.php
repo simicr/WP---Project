@@ -31,6 +31,14 @@
 		}
 
 		/*
+			With the given username $user, returns the ID in the Users(Korisnik) table.
+		*/
+		private function getUserID($user) {
+			$sql = "SELECT * FROM " . TBL_KORISNIK . " WHERE USER=\"{$user}\";";
+			$result = $this->conn->query($sql);
+			return (int) $result->fetch()["IDK"];
+		}
+		/*
 			Gets the content of the directory $dir of user $user.
 		*/
 		public function getAllFromDir($user, $dir) {
@@ -38,18 +46,18 @@
 			$resultChild = array();
 			$resultFiles = array();
 
-			$userID = getUserID($user);
-			$sql = "SELECT * FROM" . TBL_DIR . 
-					"WHERE RODITELJ IN (SELECT IDD FROM ". TBL_DIR . " WHERE IME={$dir} AND IDK={$userID})";
+			$userID = $this->getUserID($user);
+			$sql = "SELECT * FROM " . TBL_DIR . 
+					" WHERE RODITELJ IN (SELECT IDD FROM ". TBL_DIR . " WHERE IME=\"{$dir}\" AND IDK={$userID})";
 			$childDir = $this->conn->query($sql);
 			foreach($childDir as $row) { $resultChild[] = new Direktorijum($row);}
 
-			$sql = "SELECT * FROM " . TBL_FILE . "WHERE IDD IN (SELECT IDD FROM " . TBL_DIR . " WHERE IME={$dir})";
+			$sql = "SELECT * FROM " . TBL_FILE . " WHERE IDD IN (SELECT IDD FROM " . TBL_DIR . " WHERE IME=\"{$dir}\")";
 			$files = $this->conn->query($sql);
 			foreach($files as $row) {$resultFiles[] = new Fajl($row); }
 
 
-			$result["files"] = $resultFiles;
+			$result["Files"] = $resultFiles;
 			$result["Directory"] = $resultChild;
 			return $result;
 		}

@@ -11,5 +11,10 @@
             $this->roditelj = (int) $row["RODITELJ"];
             $this->ime = $row["IME"];
         }
+
+        public function getHtmlTableRow() {
+            return 
+                "<div> <a> DIR </a> {$this->ime} </div>";
+        }
     }
 ?>
