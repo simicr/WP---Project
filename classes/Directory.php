@@ -12,9 +12,19 @@
             $this->ime = $row["IME"];
         }
 
-        public function getHtmlTableRow() {
+        public function getHtml() {
             return 
-                "<div> <a> DIR </a> {$this->ime} </div>";
+                "<div> 
+                    <a href=\"?directory={$this->idd}\"> DIR </a> 
+                    {$this->ime} 
+                </div>";
+        }
+
+        public function getID() {
+            return $this->idd;
+        }
+        public function getName() {
+            return $this->ime;
         }
     }
 ?>

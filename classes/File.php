@@ -6,14 +6,17 @@
         private $ime;
 
         public function __construct($row) {
-            $this->idd = (int) $row["IDD"];
-            $this->idf = (int) $row["IDF"];
-            $this->ime = $row["IME"];
+            $this->idd = (int) $row['IDD'];
+            $this->idf = (int) $row['IDF'];
+            $this->ime = $row['IME'];
         }
 
-        public function getHtmlTableRow() {
+        public function getHtml() {
             return 
-                "<div> <a> FILE </a> {$this->ime} </div>";
+                "<div> 
+                    <a href=\"\"> FILE </a> 
+                    {$this->ime} 
+                </div>";
         }
     }
 
