@@ -13,11 +13,11 @@
         $_SESSION["history"] = array();
     }
 
-    $workingDir = $db->getRootDir($_COOKIE["username"]);
+    $_SESSION["workingDir"] = $db->getRootDir($_COOKIE["username"]);
     if(isset($_GET["directory"])) {
         $dir = htmlspecialchars($_GET["directory"]);
         if($db->validDir($_COOKIE["username"], $dir)) {
-            $workingDir = $db->getDir($dir);
+            $_SESSION["workingDir"] = $db->getDir($dir);
         }
     } 
 
@@ -31,19 +31,20 @@
     /*
         Gets HTML with the contents of the directory.
     */
-    function getCurrDir($db, $workingDir) {
-        $dirID = $workingDir->getID();
+    function getCurrDir($db) {
+        $dirID = $_SESSION["workingDir"]->getID();
         $res = $db->getAllFromDir($_COOKIE["username"], $dirID);
         $result = "<div>";
         
-        if($workingDir->getName() <> "root") {
+        if($_SESSION["workingDir"]->getName() <> "root") {
             $parent = $db->getParentDir($dirID);
             $result .= "<div> <a href=\"?directory={$parent->getID()}\"> DIR </a> .. </div>";
         }
 
         if (count($res["Directory"]) + count($res["Files"]) == 0){
-            return 
-                "<div> No files or directory in this directory. </div>";
+            $result .= "<div> No files or directory in this directory. </div>";
+            $result .= "</div>";
+            return $result;
         }
         foreach($res["Directory"] as $dir) {
             $result .= $dir->getHtml();
@@ -69,7 +70,14 @@
             echo getHeader();
             echo "<h2>Access history</h2>";
             echo "<h2> Content of directory </h2>";
-            echo getCurrDir($db, $workingDir);
+            echo getCurrDir($db);
+            echo "</br>";
         ?>
+        <a href="adding.php"><button> Add new file</button></a>
+        /* 
+            Need to finish this.
+        */
+        <a href=""><button> Add new sub-directory</button></a>
+        <a href="index.php?exit"><button> Exit storage </button></a>
     </body>
 </html>

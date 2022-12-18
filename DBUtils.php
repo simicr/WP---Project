@@ -104,6 +104,23 @@
 			$res = $this->conn->query($sql)->fetch();
 			return new Direktorijum($res);
 		}
+
+		/*
+			Inserts a file in the data base.
+		*/
+		public function insertFile($dir, $fileName) {
+			$sql = "INSERT INTO `" . TBL_FILE . "` (`IDD`, `IME`) VALUES ({$dir->getID()}, '{$fileName}');";
+			return $this->conn->query($sql);
+		}
+
+		/*
+			Finds the ID of file given the name and the directory.
+		*/
+		public function getFileID($fileName, $dir) {
+			$sql = "SELECT * FROM " . TBL_FILE . " WHERE IDD={$dir} AND IME=\"{$fileName}\"";
+			$res = $this->conn->query($sql)->fetch();
+			return $res["IDF"];
+		}
 	}
 
 ?>
