@@ -6,6 +6,13 @@
         return $db->validate($user, $pass);
     }
 
+    if(isset($_GET["exit"])) {
+        session_unset();
+        session_destroy();
+        setcookie("bye", "See you next time", time() + 120);
+        header('Location: login.php');
+    }
+
     if(!isset($_POST["login"])) {
         header('Location: login.php');
     } else {

@@ -1,13 +1,19 @@
 <?php 
     function login() {
-        $errMsg = "";
+        $msg = "";
         if (isset($_COOKIE["wrongInfo"])) {
-            $errMsg = $_COOKIE["wrongInfo"];
-            $errMsg = "<a style=\"color:red;\">" . $errMsg . "<a>";
+            $msg = $_COOKIE["wrongInfo"];
+            $msg = "<a style=\"color:red;\">" . $msg . "<a>";
             setcookie("wrongInfo", "", time() - 120);
         }
+        
+        if (isset($_COOKIE["bye"])) {
+            $msg = $_COOKIE["bye"];
+            $msg = "<a style=\"color:green;\">" . $msg . "<a>";
+            setcookie("bye", "", time() - 120);
+        }
         echo "<div>";
-        echo $errMsg;
+        echo $msg;
         echo "<form method=\"post\" action=\"index.php\">";
         echo "<label for=\"user\">Username</label></br>";
         echo "<input type=\"text\" id=\"user\" name=\"user\"></br>";
