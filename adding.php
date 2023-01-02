@@ -32,7 +32,7 @@
 
         if (!in_array($ext, $allowed)) {
             global $msg;
-            $msg = "The uploaded extension is of wrong type. Only jpg and txt allowed.";
+            $msg = "The uploaded extension is of wrong type. Only jpg, jpeg, png and txt allowed.";
             return 0;
         }
 

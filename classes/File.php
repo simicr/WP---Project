@@ -14,9 +14,23 @@
         public function getHtml() {
             return 
                 "<div> 
-                    <a href=\"\"> FILE </a> 
+                    <a href=\"view.php?id={$this->idf}\"> FILE </a> 
                     {$this->ime} 
                 </div>";
+        
+        
+        }
+
+        public function getID() {
+            return $this->idf;
+        }
+
+        public function getDir() {
+            return $this->idd;
+        }
+
+        public function getName() {
+            return $this->ime;
         }
     }
 

@@ -23,8 +23,13 @@
         public function getID() {
             return $this->idd;
         }
+
         public function getName() {
             return $this->ime;
+        }
+
+        public function getParent() {
+            return $this->roditelj;
         }
     }
 ?>

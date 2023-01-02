@@ -7,6 +7,7 @@
     }
 
     if(isset($_GET["exit"])) {
+        session_start();
         session_unset();
         session_destroy();
         setcookie("bye", "See you next time", time() + 120);

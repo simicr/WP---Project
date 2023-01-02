@@ -45,7 +45,7 @@
 		/*
 			With the given username $user, returns the ID in the Users(Korisnik) table.
 		*/
-		private function getUserID($user) {
+		public function getUserID($user) {
 			$sql = "SELECT * FROM " . TBL_KORISNIK . " WHERE USER=\"{$user}\";";
 			$result = $this->conn->query($sql);
 			return (int) $result->fetch()["IDK"];
@@ -120,6 +120,46 @@
 			$sql = "SELECT * FROM " . TBL_FILE . " WHERE IDD={$dir} AND IME=\"{$fileName}\"";
 			$res = $this->conn->query($sql)->fetch();
 			return $res["IDF"];
+		}
+
+
+		/*
+			Checks if a file in that dir exist, could improve so that it checks if the dir is the users.
+		*/
+		public function isValidFile($idf, $dir) {
+			$sql = "SELECT * FROM " . TBL_FILE . " WHERE IDF={$idf} AND IDD={$dir}";
+
+			return $this->conn->query($sql)->rowCount() > 0;
+		}
+		
+		/*
+			Returns the file in dir with the idf.
+		*/
+		public function getFile($idf, $dir) {
+			$sql = "SELECT * FROM " . TBL_FILE . " WHERE IDD={$dir} AND IDF={$idf}";
+			return new Fajl($this->conn->query($sql)->fetch());
+		}
+
+		/*
+			Record a new access of a file.
+		*/
+		public function insertAccesss($acc) {
+			$time = date("Y-m-d H:i:s", $acc->getTime());
+			$sql = "INSERT INTO `Pristup`(`IDK`, `IDD`, `IDF`, `VREME`) VALUES ({$acc->getUser()}, {$acc->getDir()}, {$acc->getFile()}, '{$time}')";
+			$this->conn->query($sql);
+		}
+
+
+		public function directoryExist($user,$name, $parent) {
+			$uid = $this->getUserID($user);
+			$sql = "SELECT * FROM Direktorijum WHERE RODITELJ={$parent} AND IDK={$uid} AND IME=\"{$name}\"";
+			return $this->conn->query($sql)->rowCount() > 0;
+		}
+
+		public function insertDirectory($user, $name, $parent) {
+			$uid = $this->getUserID($user);
+			$sql = "INSERT INTO `Direktorijum`(`IDK`, `RODITELJ`, `IME`) VALUES ({$uid}, {$parent}, \"{$name}\")";
+			return $this->conn->query($sql);
 		}
 	}
 
