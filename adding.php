@@ -59,8 +59,13 @@
                     $db->insertFile($_SESSION["workingDir"], $filename);
                     $id = $db->getFileID($filename, $_SESSION["workingDir"]->getID());  
                     $ext = pathinfo($filename, PATHINFO_EXTENSION);
-                    move_uploaded_file($_FILES["file"]["tmp_name"], "res/{$id}.{$ext}");
-                    
+                    $path = __DIR__;
+                    $ok = move_uploaded_file($_FILES["file"]["tmp_name"], "{$path}/res/{$id}.{$ext}");
+                    if ($ok) {
+                        echo "radi";
+                    } else {
+                        echo "ne radi";
+                    }
                     echo "<p style=\"color:green;\">{$msg}</p>";
                 } else {
                     echo "<p style=\"color:red;\">{$msg}</p>";

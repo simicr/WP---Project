@@ -21,6 +21,7 @@
     */
     if(isset($_GET["directory"])) {
         $dir = htmlspecialchars($_GET["directory"]);
+        
         if($db->validDir($_COOKIE["username"], $dir)) {
             $_SESSION["workingDir"] = $db->getDir($dir);
         }
@@ -30,11 +31,14 @@
         Check if we want to create a new directory.
     */
     if (isset($_POST["newDir"])) {
-        echo $_POST["newDir"];
         $newDir = htmlspecialchars($_POST["newDir"]);
-        if(!$db->directoryExist($_COOKIE["username"], $newDir, $_SESSION["workingDir"]->getID())) {
-            $db->insertDirectory($_COOKIE["username"], $newDir, $_SESSION["workingDir"]->getID());
-        } 
+        if (trim($newDir) == "") {
+        } else {
+            if(!$db->directoryExist($_COOKIE["username"], $newDir, $_SESSION["workingDir"]->getID())) {
+                $db->insertDirectory($_COOKIE["username"], $newDir, $_SESSION["workingDir"]->getID());
+            } 
+        }
+        
     }
     
 
@@ -107,7 +111,7 @@
         ?>
         
         <form action="?directory=<?php echo $_SESSION["workingDir"]->getID()?>" method="POST">
-            <input type="text" name="newDir"  placeholder="New folder name..." class="border-solid  border-2 w-full">
+            <input type="text" name="newDir"  placeholder="New directory name..." class="border-solid  border-2 w-full">
             <input class="mt-4 w-full px-6 py-2.5 bg-black text-white" type="submit" value="Add new directory">
         </form> 
         <div class="flex flex-row">
