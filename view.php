@@ -31,12 +31,17 @@
 ?>
 <html>
     <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>
+         <?php echo $file->getName()?>
+    </title>
     </head>
-    <body>
-        <b>File:</b> <?php echo $file->getName()?> </br>
-        <b>Owner:</b> <?php echo $_COOKIE["username"] ?> </br>
-        <b>Directory:</b> <?php echo $db->getDir($idDir)->getName() ?> </br>
-        SADRZAJ FAJLA: </br></br>
+    <body class="bg-teal-100">
+        <div class="flex flex-col items-center justify-center h-screen">
+        <b class="text-xl">File</b> <?php echo $file->getName()?> </br>
+        <b class="text-xl">Owner</b> <?php echo $_COOKIE["username"] ?> </br>
+        <b class="text-xl">Directory</b> <?php echo $db->getDir($idDir)->getName() ?> </br>
+        <b class="text-xl">Content of file</b>
 
         <?php 
             $ext = explode(".", $file->getName())[1];
@@ -49,7 +54,7 @@
         ?>
 
         </br></br>
-        <a href="storage.php?directory=<?php echo $_SESSION["workingDir"]->getID()?>"><button>Return</button> </a>
-
+        <a class="font-medium text-blue-600 hover:underline" href="storage.php?directory=<?php echo $_SESSION["workingDir"]->getID()?>"><button>Return</button> </a>
+        </div>
     </body>
 </html>

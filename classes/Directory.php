@@ -15,7 +15,7 @@
         public function getHtml() {
             return 
                 "<div> 
-                    <a href=\"?directory={$this->idd}\"> DIR </a> 
+                    <a class=\"font-medium text-blue-600 hover:underline\" href=\"?directory={$this->idd}\"> DIR </a> 
                     {$this->ime} 
                 </div>";
         }

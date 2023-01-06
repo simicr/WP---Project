@@ -32,7 +32,7 @@
             $ime = (new DataBase())->getFile($this->idf, $this->idd)->getName();
             return
             "<div> 
-                    <a href=\"view.php?id={$this->idf}&dir={$this->idd}\"> FILE </a> 
+                    <a class=\"font-medium text-blue-600 hover:underline\" href=\"view.php?id={$this->idf}&dir={$this->idd}\"> FILE </a> 
                     {$ime} 
             </div>";
         }

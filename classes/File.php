@@ -14,7 +14,7 @@
         public function getHtml() {
             return 
                 "<div> 
-                    <a href=\"view.php?id={$this->idf}\"> FILE </a> 
+                    <a class=\"font-medium text-blue-600 hover:underline\" href=\"view.php?id={$this->idf}\"> FILE </a> 
                     {$this->ime} 
                 </div>";
         

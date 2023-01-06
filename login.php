@@ -9,17 +9,17 @@
         
         if (isset($_COOKIE["bye"])) {
             $msg = $_COOKIE["bye"];
-            $msg = "<a style=\"color:green;\">" . $msg . "<a>";
+            $msg = "<a class=\"text-white\">" . $msg . "<a>";
             setcookie("bye", "", time() - 120);
         }
-        echo "<div>";
+        echo "<div class=\"flex flex-col items-center justify-center h-screen\">";
         echo $msg;
         echo "<form method=\"post\" action=\"index.php\">";
-        echo "<label for=\"user\">Username</label></br>";
-        echo "<input type=\"text\" id=\"user\" name=\"user\"></br>";
-        echo "<label for=\"pass\">Password</label></br>";
-        echo "<input type=\"password\" id=\"pass\" name=\"pass\"></br>";
-        echo "<input type=\"submit\" value=\"Login\" name=\"login\"></br>";
+        echo "<label class=\"font-bold text-lg\" for=\"user\">Username</label></br>";
+        echo "<input type=\"text\" id=\"user\" name=\"user\" class=\"border-solid  border-2\"></br>";
+        echo "<label class=\"font-bold text-lg\" for=\"pass\">Password</label></br>";
+        echo "<input type=\"password\" id=\"pass\" name=\"pass\" class=\"border-solid  border-2\"></br>";
+        echo "<input class=\"mt-4 w-full px-6 py-2.5 bg-black text-white\" type=\"submit\" value=\"Login\" name=\"login\"></br>";
         echo "</form>";
         echo "</div>";
     }
@@ -28,8 +28,9 @@
 <html>
     <head>
         <title> PmfStorage </title>
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body>
+    <body class="bg-teal-400">
         <?php login() ?>
     </body>
 </html>
